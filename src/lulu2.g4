@@ -46,11 +46,11 @@ id:'id';
 
 allocate :'allocate';
 default :'default';
-goto :'goto';
 this:'this';
 destruct :'destruct';
 if :'if';
 true: 'true';
+for: 'for';
 break :'break';
 read :'read';
 case :'case';
