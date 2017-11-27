@@ -41,16 +41,14 @@ SUPER:'super';
 DIGIT:[0-9];
 DIGITS:DIGIT(DIGIT)*;
 
+INT_CONST:[0-9]+|'0'('x'|'X')( ( ([0-9])+ | ([a-f])+ )+ |(([0-9])+ | ([A-F])+ )+ );
+OptionalExponent:(('e'|'E')('+'|'-')?)DIGITS;
 
-INT_CONST:DIGITS|'0'('x'|'X')( ( ([0-9])+ | ([a-f])+ )+ |(([0-9])+ | ([A-F])+ )+ );
+REAL_CONST:(([0-9]+'.')|([0-9]*'.'[0-9]+)) (OptionalExponent)?;
 
 ID:(LETTER|'_')+(LETTER|'_'|DIGITS)*;
 
 LETTER: [a-z]|[A-Z];
-
-optionalExponent:(('e'|'E')('+'|'-')?)DIGITS;
-
-real_const:((DIGITS'.')|('.'DIGITS)|(DIGITS'.'DIGITS)) (optionalExponent)?;
 
 CHAR_CONST:'\''([a-z]|[A-Z]|'\\0'|'\\t'|'\\n'|'\\r'|ASCII|DIGIT|ARITHMETIC|
     RELATIONAL|OCONTROLLS|OBLOCK)'\'';
@@ -65,7 +63,7 @@ args : type ( '[' ']' )* | args ',' type ( '[' ']' )*;
 args_var : type ID ( '[' ']' )* | args_var ',' type ID ( '[' ']' )*;
 type : INT | BOOL | FLOAT | LONG | CHAR | DOUBLE | STRING | ID;
 type_dcl : ID ';';
-dvar_def : CONST? type var_val ( ',' var_val )* ';';
+var_def : CONST? type var_val ( ',' var_val )* ';';
 var_val : ID ( '[' INT_CONST ']' )* ( '=' ( expr | list | ALLOCATE ID ) )?;
 list : '[' ( expr | list ) ( ',' ( expr | list ) )* ']';
 ft_def : ( type_def | fun_def )+;
@@ -79,9 +77,7 @@ DESTRUCT ( '[' ']' )* ID ';';
 assign : var '=' expr | var '=' NEW | '(' var ( ',' var )* ')' '=' func_call;
 var : ( ( THIS | SUPER ) '.' )? ref ( '.' ref )*;
 ref : ID ( '[' expr ']' )*;
-expr : (expr1  | '(' expr ')' | unary_op expr| const_val |
-func_call | var | NIL);
-expr1: binary_op expr expr1;
+expr : expr binary_op expr  | '(' expr ')' | unary_op expr| const_val | func_call | var | NIL;
 func_call : ( var '.' )? ID '(' params? ')' | SIZEOF '(' ( type | var ) ')' |
 READ '(' var ')' | WRITE '(' var ')';
 params : expr | expr ',' params;
@@ -89,7 +85,7 @@ cond_stmt : IF '(' expr ')' block ( ELSE block )? | SWITCH '(' var ') of'  ':' '
 loop_stmt : FOR '(' var_def? ';' expr ';' assign? ')' block | WHILE '(' expr ')' block;
 GOTO : 'goto' ID;
 label : ID ':';
-const_val : INT_CONST | real_const | CHAR_CONST | bool_const | string_const;
+const_val : INT_CONST | REAL_CONST | CHAR_CONST | bool_const | string_const;
 unary_op : '-' | '!' | '~';
 binary_op : ARITHMETIC | RELATIONAL;
 ARITHMETIC : '+' | '-' | '*' | '/' | '%' | '&' | '|' | '^' | '||' | '&&'|'!'|'~';
