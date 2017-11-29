@@ -1,10 +1,14 @@
 grammar lulu2;
-//program : ft_dcl? ft_def*
+program : ft_dcl? ft_def*;
+//program : ft_dcl? (ft_def* ft_start fact1 | ft_start ft_def* );//left factoring
 
+//fact1:ft_def*|;//| nullable;
+
+//ft_start:'('INT ID ')''='('function'|'Function')('srart'|'START')('('')')block;
 OCONTROLLS:'.'|','|';'|':';
 OBLOCK:'['|']'|'{'|'}'| '(' |')';
 
-INT :'int';
+INT:'int';
 BOOL:'bool';
 FLOAT:'float';
 LONG:'long';
@@ -19,7 +23,7 @@ DESTRUCT :'destruct';
 IF :'if';
 TRUE: 'true';
 BREAK :'break';
-READ :'READ';
+READ :'read';
 CASE :'case';
 ELSE:'else';
 RETURN :'return';
@@ -38,57 +42,69 @@ NIL :'nil';
 SUPER:'super';
 
 
-DIGIT:[0-9];
-DIGITS:DIGIT(DIGIT)*;
+fragment DIGIT:[0-9];
 
-INT_CONST:[0-9]+|'0'('x'|'X')( ( ([0-9])+ | ([a-f])+ )+ |(([0-9])+ | ([A-F])+ )+ );
-OptionalExponent:(('e'|'E')('+'|'-')?)DIGITS;
+Int_const : DIGIT+ | '0'('x'|'X')([0-9]|'a'|'A'|'b'|'B'|'c'|'C'|'d'|'D'|'e'|'E'|'f'|'F')+;
+ID:(LETTER|'_')(LETTER|'_'|[0-9])*;
 
-REAL_CONST:(([0-9]+'.')|([0-9]*'.'[0-9]+)) (OptionalExponent)?;
+LETTER: [a-zA-Z];
 
-ID:(LETTER|'_')+(LETTER|'_'|DIGITS)*;
+OptionalExponent:(('e'|'E')('+'|'-')?)[0-9]+;
 
-LETTER: [a-z]|[A-Z];
+REAL_CONST:(REAL_FACT|REAL_FACT[0-9]+|'.'[0-9]+) (OptionalExponent)?;
+REAL_FACT: [0-9]+'.';
 
-CHAR_CONST:'\''([a-z]|[A-Z]|'\\0'|'\\t'|'\\n'|'\\r'|ASCII|DIGIT|ARITHMETIC|
+CHAR_CONST:'\''([a-z]|[A-Z]|'\\0'|'\\t'|'\\n'|'\\r'|ASCII|[0-9]|ARITHMETIC|
     RELATIONAL|OCONTROLLS|OBLOCK)'\'';
 //--------------------------
 ASCII:'\\'('x'|'X')( ( ([0-9])+ | ([a-f])+ )+ |(([0-9])+ | ([A-F])+ )+ );
-bool_const:TRUE|FALSE;
-string_const:'"' (CHAR_CONST)* '"';
-program : ft_dcl? ft_def*;
+Bool_const:TRUE|FALSE;
+String_const: '"' (~['"\\\r\n'])*'"';
 ft_dcl : 'declare' '{' ( func_dcl | type_dcl | var_def )+ '}';
 func_dcl : ( '(' args ')' '=' )? ID '(' ( args | args_var )? ')' ';';
 args : type ( '[' ']' )* | args ',' type ( '[' ']' )*;
 args_var : type ID ( '[' ']' )* | args_var ',' type ID ( '[' ']' )*;
+block : '{' ( stmt | var_def )* '}';
+stmt : assign ';' | func_call ';' | cond_stmt | loop_stmt | RETURN ';' | GOTO ';' | label | expr ';' | BREAK ';' | CONTINUE ';' |
+DESTRUCT ( '[' ']' )* ID ';';
 type : INT | BOOL | FLOAT | LONG | CHAR | DOUBLE | STRING | ID;
 type_dcl : ID ';';
 var_def : CONST? type var_val ( ',' var_val )* ';';
-var_val : ID ( '[' INT_CONST ']' )* ( '=' ( expr | list | ALLOCATE ID ) )?;
+var_val : ID ( '[' Int_const ']' )* ( '=' ( expr | list | ALLOCATE ID ) )?;
 list : '[' ( expr | list ) ( ',' ( expr | list ) )* ']';
 ft_def : ( type_def | fun_def )+;
 type_def : type ID ( ':' ID )? '{' component+ '}';
 component : access_modifier? ( var_def | fun_def );
 access_modifier : 'private' | 'public' | 'protected';
 fun_def : ( '(' args_var ')' '=' )? FUNCTION ID '(' args_var? ')' block;
-block : '{' ( var_def | stmt )* '}';
-stmt : assign ';' | func_call ';' | cond_stmt | loop_stmt | RETURN ';' | GOTO ';' | label | expr ';' | BREAK ';' | CONTINUE ';' |
-DESTRUCT ( '[' ']' )* ID ';';
-assign : var '=' expr | var '=' NEW | '(' var ( ',' var )* ')' '=' func_call;
+
+
+assign : var '=' np2 | '(' var ( ',' var )* ')' '=' func_call;//LEFT FACTORING
+np2:expr|NEW;
+
 var : ( ( THIS | SUPER ) '.' )? ref ( '.' ref )*;
 ref : ID ( '[' expr ']' )*;
-expr : expr binary_op expr  | '(' expr ')' | unary_op expr| const_val | func_call | var | NIL;
-func_call : ( var '.' )? ID '(' params? ')' | SIZEOF '(' ( type | var ) ')' |
-READ '(' var ')' | WRITE '(' var ')';
-params : expr | expr ',' params;
-cond_stmt : IF '(' expr ')' block ( ELSE block )? | SWITCH '(' var ') of'  ':' '{' ( CASE INT_CONST ':' block )* DEFAULT ':' block '}';
+expr : ( '(' expr ')'| bit_unary_op Int_const | const_val |
+func_call | var | NIL |Int_const bit_binary_op Int_const ) fact;
+
+fact : binary_op (expr) fact|;
+
+
+func_call : READ '(' var ')' |( var '.' )? ID '(' params? ')' | SIZEOF '(' ( type | var ) ')' | WRITE '(' var ')';
+
+params : expr np;//left fact
+np:',' params|;
+
+cond_stmt : IF '(' expr ')' block ( ELSE block )? | SWITCH '(' var ') of'  ':' '{' ( CASE Int_const ':' block )* DEFAULT ':' block '}';
 loop_stmt : FOR '(' var_def? ';' expr ';' assign? ')' block | WHILE '(' expr ')' block;
 GOTO : 'goto' ID;
 label : ID ':';
-const_val : INT_CONST | REAL_CONST | CHAR_CONST | bool_const | string_const;
-unary_op : '-' | '!' | '~';
+const_val : Int_const | REAL_CONST | CHAR_CONST | Bool_const | String_const;
+bit_unary_op : '-' | '!' | '~';
+bit_binary_op:'&' | '|' | '^' | '||' | '&&';
+
 binary_op : ARITHMETIC | RELATIONAL;
-ARITHMETIC : '+' | '-' | '*' | '/' | '%' | '&' | '|' | '^' | '||' | '&&'|'!'|'~';
+ARITHMETIC : '+' | '-' | '*' | '/' | '%' ;
 RELATIONAL : '==' | '!=' | '<=' | '=>' | '<' | '>';
 
 WS : [ \t\r\n]+ -> skip;
