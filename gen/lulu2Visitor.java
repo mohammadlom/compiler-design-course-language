@@ -1,4 +1,4 @@
-// Generated from /home/mohammad_lom/IdeaProjects/compiler-design-course-language/src/lulu2.g4 by ANTLR 4.7
+// Generated from C:/Users/Mohammad/IdeaProjects/compiler-design-course-language/src\lulu2.g4 by ANTLR 4.7
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -15,6 +15,12 @@ public interface lulu2Visitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitProgram(lulu2Parser.ProgramContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link lulu2Parser#comments}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitComments(lulu2Parser.CommentsContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link lulu2Parser#ft_dcl}.
 	 * @param ctx the parse tree

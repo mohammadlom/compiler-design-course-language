@@ -1,4 +1,4 @@
-// Generated from /home/mohammad_lom/IdeaProjects/compiler-design-course-language/src/lulu2.g4 by ANTLR 4.7
+// Generated from C:/Users/Mohammad/IdeaProjects/compiler-design-course-language/src\lulu2.g4 by ANTLR 4.7
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -16,6 +16,16 @@ public interface lulu2Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitProgram(lulu2Parser.ProgramContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link lulu2Parser#comments}.
+	 * @param ctx the parse tree
+	 */
+	void enterComments(lulu2Parser.CommentsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link lulu2Parser#comments}.
+	 * @param ctx the parse tree
+	 */
+	void exitComments(lulu2Parser.CommentsContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link lulu2Parser#ft_dcl}.
 	 * @param ctx the parse tree

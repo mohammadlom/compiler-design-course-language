@@ -1,5 +1,10 @@
 grammar lulu2;
-program : ft_dcl? ft_def*;
+program :(comments*) ft_dcl? (comments*) ft_def* (comments*);
+
+comments:Single_line_c|Multi_line_c;
+
+Single_line_c: '%%' ~[\r\n]* -> skip;
+Multi_line_c:'%@'.*?'@%' ->skip ;
 //program : ft_dcl? (ft_def* ft_start fact1 | ft_start ft_def* );//left factoring
 
 //fact1:ft_def*|;//| nullable;
@@ -59,21 +64,21 @@ CHAR_CONST:'\''([a-z]|[A-Z]|'\\0'|'\\t'|'\\n'|'\\r'|ASCII|[0-9]|ARITHMETIC|
 //--------------------------
 ASCII:'\\'('x'|'X')( ( ([0-9])+ | ([a-f])+ )+ |(([0-9])+ | ([A-F])+ )+ );
 Bool_const:TRUE|FALSE;
-String_const: '"' (~['"\\\r\n'])*'"';
-ft_dcl : 'declare' '{' ( func_dcl | type_dcl | var_def )+ '}';
+String_const: '"' (~['"\\\r\n'])* '"' ;
+ft_dcl : 'declare' '{' ( func_dcl | type_dcl | var_def |comments)+ '}';
 func_dcl : ( '(' args ')' '=' )? ID '(' ( args | args_var )? ')' ';';
 args : type ( '[' ']' )* | args ',' type ( '[' ']' )*;
 args_var : type ID ( '[' ']' )* | args_var ',' type ID ( '[' ']' )*;
-block : '{' ( stmt | var_def )* '}';
-stmt : assign ';' | func_call ';' | cond_stmt | loop_stmt | RETURN ';' | GOTO ';' | label | expr ';' | BREAK ';' | CONTINUE ';' |
-DESTRUCT ( '[' ']' )* ID ';';
+block : '{' ( stmt | var_def|comments )* '}';
+stmt : assign ';' | func_call ';' | cond_stmt | loop_stmt | RETURN ';' | 'goto' ID ';' | label | expr ';' | BREAK ';' | CONTINUE ';' |
+DESTRUCT ( '[' ']' )* ID ';';//delete comments
 type : INT | BOOL | FLOAT | LONG | CHAR | DOUBLE | STRING | ID;
 type_dcl : ID ';';
 var_def : CONST? type var_val ( ',' var_val )* ';';
 var_val : ID ( '[' Int_const ']' )* ( '=' ( expr | list | ALLOCATE ID ) )?;
 list : '[' ( expr | list ) ( ',' ( expr | list ) )* ']';
 ft_def : ( type_def | fun_def )+;
-type_def : type ID ( ':' ID )? '{' component+ '}';
+type_def : type ID ( ':' ID )? '{' comments* component+ comments* '}';
 component : access_modifier? ( var_def | fun_def );
 access_modifier : 'private' | 'public' | 'protected';
 fun_def : ( '(' args_var ')' '=' )? FUNCTION ID '(' args_var? ')' block;
@@ -97,7 +102,6 @@ np:',' params|;
 
 cond_stmt : IF '(' expr ')' block ( ELSE block )? | SWITCH '(' var ') of'  ':' '{' ( CASE Int_const ':' block )* DEFAULT ':' block '}';
 loop_stmt : FOR '(' var_def? ';' expr ';' assign? ')' block | WHILE '(' expr ')' block;
-GOTO : 'goto' ID;
 label : ID ':';
 const_val : Int_const | REAL_CONST | CHAR_CONST | Bool_const | String_const;
 bit_unary_op : '-' | '!' | '~';

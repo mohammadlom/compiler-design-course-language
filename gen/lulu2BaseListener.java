@@ -1,4 +1,4 @@
-// Generated from /home/mohammad_lom/IdeaProjects/compiler-design-course-language/src/lulu2.g4 by ANTLR 4.7
+// Generated from C:/Users/Mohammad/IdeaProjects/compiler-design-course-language/src\lulu2.g4 by ANTLR 4.7
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -22,6 +22,18 @@ public class lulu2BaseListener implements lulu2Listener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitProgram(lulu2Parser.ProgramContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterComments(lulu2Parser.CommentsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitComments(lulu2Parser.CommentsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
