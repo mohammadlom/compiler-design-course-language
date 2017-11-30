@@ -57,7 +57,7 @@ CHAR_CONST:'\''([a-z]|[A-Z]|'\\0'|'\\t'|'\\n'|'\\r'|ASCII|[0-9]|ARITHMETIC|
 //--------------------------
 ASCII:'\\'('x'|'X')( ( ([0-9])+ | ([a-f])+ )+ |(([0-9])+ | ([A-F])+ )+ );
 Bool_const:TRUE|FALSE;
-String_const: '"' (~['"\\\r\n'])*'"';
+String_const: '"' (~('"'|'\\'|'\r'|'\n'))*'"';
 ft_dcl : 'declare' '{' ( func_dcl | type_dcl | var_def)+ '}';
 func_dcl : ( '(' args ')' '=' )? ID '(' ( args | args_var )? ')' ';';
 args : type ( '[' ']' )* | args ',' type ( '[' ']' )*;
