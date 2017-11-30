@@ -1,15 +1,8 @@
 grammar lulu2;
-program :(comments*) ft_dcl? (comments*) ft_def* (comments*);
-
-comments:Single_line_c|Multi_line_c;
+program :ft_dcl? ft_def*;
 
 Single_line_c: '%%' ~[\r\n]* -> skip;
 Multi_line_c:'%@'.*?'@%' ->skip ;
-//program : ft_dcl? (ft_def* ft_start fact1 | ft_start ft_def* );//left factoring
-
-//fact1:ft_def*|;//| nullable;
-
-//ft_start:'('INT ID ')''='('function'|'Function')('srart'|'START')('('')')block;
 OCONTROLLS:'.'|','|';'|':';
 OBLOCK:'['|']'|'{'|'}'| '(' |')';
 
@@ -65,20 +58,20 @@ CHAR_CONST:'\''([a-z]|[A-Z]|'\\0'|'\\t'|'\\n'|'\\r'|ASCII|[0-9]|ARITHMETIC|
 ASCII:'\\'('x'|'X')( ( ([0-9])+ | ([a-f])+ )+ |(([0-9])+ | ([A-F])+ )+ );
 Bool_const:TRUE|FALSE;
 String_const: '"' (~['"\\\r\n'])*'"';
-ft_dcl : 'declare' '{' ( func_dcl | type_dcl | var_def |comments)+ '}';
+ft_dcl : 'declare' '{' ( func_dcl | type_dcl | var_def)+ '}';
 func_dcl : ( '(' args ')' '=' )? ID '(' ( args | args_var )? ')' ';';
 args : type ( '[' ']' )* | args ',' type ( '[' ']' )*;
 args_var : type ID ( '[' ']' )* | args_var ',' type ID ( '[' ']' )*;
-block : '{' ( stmt | var_def|comments )* '}';
+block : '{' ( stmt | var_def )* '}';
 stmt : assign ';' | func_call ';' | cond_stmt | loop_stmt | RETURN ';' | 'goto' ID ';' | label | expr ';' | BREAK ';' | CONTINUE ';' |
-DESTRUCT ( '[' ']' )* ID ';';//delete comments
+DESTRUCT ( '[' ']' )* ID ';';
 type : INT | BOOL | FLOAT | LONG | CHAR | DOUBLE | STRING | ID;
 type_dcl : ID ';';
 var_def : CONST? type var_val ( ',' var_val )* ';';
 var_val : ID ( '[' Int_const ']' )* ( '=' ( expr | list | ALLOCATE ID ) )?;
 list : '[' ( expr | list ) ( ',' ( expr | list ) )* ']';
 ft_def : ( type_def | fun_def )+;
-type_def : type ID ( ':' ID )? '{' comments* component+ comments* '}';
+type_def : type ID ( ':' ID )? '{' component+ '}';
 component : access_modifier? ( var_def | fun_def );
 access_modifier : 'private' | 'public' | 'protected';
 fun_def : ( '(' args_var ')' '=' )? FUNCTION ID '(' args_var? ')' block;
