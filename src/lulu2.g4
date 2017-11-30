@@ -64,7 +64,7 @@ CHAR_CONST:'\''([a-z]|[A-Z]|'\\0'|'\\t'|'\\n'|'\\r'|ASCII|[0-9]|ARITHMETIC|
 //--------------------------
 ASCII:'\\'('x'|'X')( ( ([0-9])+ | ([a-f])+ )+ |(([0-9])+ | ([A-F])+ )+ );
 Bool_const:TRUE|FALSE;
-String_const: '"' (~['"\\\r\n'])* '"' ;
+String_const: '"' (~['"\\\r\n'])*'"';
 ft_dcl : 'declare' '{' ( func_dcl | type_dcl | var_def |comments)+ '}';
 func_dcl : ( '(' args ')' '=' )? ID '(' ( args | args_var )? ')' ';';
 args : type ( '[' ']' )* | args ',' type ( '[' ']' )*;
@@ -89,10 +89,13 @@ np2:expr|NEW;
 
 var : ( ( THIS | SUPER ) '.' )? ref ( '.' ref )*;
 ref : ID ( '[' expr ']' )*;
-expr : ( '(' expr ')'| bit_unary_op Int_const | const_val |
-func_call | var | NIL |Int_const bit_binary_op Int_const ) fact;
 
-fact : binary_op (expr) fact|;
+expr : uop = '!' expr fact |uop = '~' expr fact| uop = '-' expr fact |uop = '(' expr ')' fact | const_val fact |func_call fact | var fact | NIL fact;
+
+fact : bop='*' expr fact | bop='/' expr fact
+       |bop =('+' | '-' | '%' | '&' | '|' | '^' | '||' | '&&') expr fact
+       | bop = ('==' | '!=' | '<=' | '<' | '>') expr fact
+       |;
 
 
 func_call : READ '(' var ')' |( var '.' )? ID '(' params? ')' | SIZEOF '(' ( type | var ) ')' | WRITE '(' var ')';
@@ -104,10 +107,6 @@ cond_stmt : IF '(' expr ')' block ( ELSE block )? | SWITCH '(' var ') of'  ':' '
 loop_stmt : FOR '(' var_def? ';' expr ';' assign? ')' block | WHILE '(' expr ')' block;
 label : ID ':';
 const_val : Int_const | REAL_CONST | CHAR_CONST | Bool_const | String_const;
-bit_unary_op : '-' | '!' | '~';
-bit_binary_op:'&' | '|' | '^' | '||' | '&&';
-
-binary_op : ARITHMETIC | RELATIONAL;
 ARITHMETIC : '+' | '-' | '*' | '/' | '%' ;
 RELATIONAL : '==' | '!=' | '<=' | '=>' | '<' | '>';
 
