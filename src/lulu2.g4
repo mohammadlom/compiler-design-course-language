@@ -88,7 +88,7 @@ ref : ID ( '[' expr ']' )*;
 expr : uop = '!' expr |uop = '~' expr| uop = '-' expr |uop = '(' expr ')' |expr bop='*' expr | expr bop='/' expr
 |expr bop =('+' | '-' | '%' | '&' | '|' | '^' | '||' | '&&') expr
 | expr bop = ('==' | '!=' | '<=' | '<' | '>') expr
-| const_val |func_call | var;
+| const_val |func_call | var | NIL;
 
 
 func_call : READ '(' var ')' |( var '.' )? ID '(' params? ')' | SIZEOF '(' ( type | var ) ')' | WRITE '(' var ')';
