@@ -57,7 +57,9 @@ CHAR_CONST:'\''([a-z]|[A-Z]|'\\0'|'\\t'|'\\n'|'\\r'|ASCII|[0-9]|ARITHMETIC|
 //--------------------------
 ASCII:'\\'('x'|'X')( ( ([0-9])+ | ([a-f])+ )+ |(([0-9])+ | ([A-F])+ )+ );
 Bool_const:TRUE|FALSE;
-String_const: '"' (~('"'))*'"';
+String_const: '"' Schar* '"';
+fragment Schar: ~["\\] | Escapesequence;
+fragment Escapesequence:'\\\'' | '\\"' | '\\?' | '\\\\' | '\\a' | '\\b' | '\\f' | '\\n' | '\\r' | '\\t' | '\\v' ;
 ft_dcl : 'declare' '{' ( func_dcl | type_dcl | var_def)+ '}';
 func_dcl : ( '(' args ')' '=' )? ID '(' ( args | args_var )? ')' ';';
 args : type ( '[' ']' )* | args ',' type ( '[' ']' )*;
@@ -83,12 +85,10 @@ np2:expr|NEW;
 var : ( ( THIS | SUPER ) '.' )? ref ( '.' ref )*;
 ref : ID ( '[' expr ']' )*;
 
-expr : uop = '!' expr fact |uop = '~' expr fact| uop = '-' expr fact |uop = '(' expr ')' fact | const_val fact |func_call fact | var fact | NIL fact;
-
-fact : bop='*' expr fact | bop='/' expr fact
-       |bop =('+' | '-' | '%' | '&' | '|' | '^' | '||' | '&&') expr fact
-       | bop = ('==' | '!=' | '<=' | '<' | '>') expr fact
-       |;
+expr : uop = '!' expr |uop = '~' expr| uop = '-' expr |uop = '(' expr ')' |expr bop='*' expr | expr bop='/' expr
+|expr bop =('+' | '-' | '%' | '&' | '|' | '^' | '||' | '&&') expr
+| expr bop = ('==' | '!=' | '<=' | '<' | '>') expr
+| const_val |func_call | var;
 
 
 func_call : READ '(' var ')' |( var '.' )? ID '(' params? ')' | SIZEOF '(' ( type | var ) ')' | WRITE '(' var ')';
