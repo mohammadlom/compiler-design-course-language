@@ -63,31 +63,33 @@ fragment Escapesequence:'\\\'' | '\\"' | '\\?' | '\\\\' | '\\a' | '\\b' | '\\f' 
 ft_dcl : 'declare' '{' ( func_dcl | type_dcl | var_def)+ '}';
 func_dcl : ( '(' args ')' '=' )? ID '(' ( args | args_var )? ')' ';';
 args : type ( '[' ']' )* | args ',' type ( '[' ']' )*;
-args_var : type ID ( '[' ']' )* | args_var ',' type ID ( '[' ']' )*;
+args_var : args_var_def ( ',' args_var_def )*;
+array_dcl : '[' ']';
+args_var_def : type ID ( array_dcl )*;
 block : '{' ( stmt | var_def )* '}';
-stmt : assign ';' | func_call ';' | cond_stmt | loop_stmt | RETURN ';' | 'goto' ID ';' | label | expr ';' | BREAK ';' | CONTINUE ';' |
+stmt : assign ';' | func_call ';' | cond_stmt | loop_stmt | RETURN ';' | 'goto' ID ';' | label | expr ';' | loop_cond_stmt |
 DESTRUCT ( '[' ']' )* ID ';';
+loop_cond_stmt : BREAK ';' | CONTINUE ';';
 type : INT | BOOL | FLOAT | LONG | CHAR | DOUBLE | STRING | ID;
 type_dcl : ID ';';
 var_def : CONST? type var_val ( ',' var_val )* ';';
 var_val : ID ( '[' Int_const ']' )* ( '=' ( expr | list | ALLOCATE ID ) )?;
 list : '[' ( expr | list ) ( ',' ( expr | list ) )* ']';
 ft_def : ( type_def | fun_def )+;
-type_def : type ID ( ':' ID )? '{' component+ '}';
+type_def : 'type' ID ( ':' ID )? '{' component+ '}';
 component : access_modifier? ( var_def | fun_def );
 access_modifier : 'private' | 'public' | 'protected';
 fun_def : ( '(' args_var ')' '=' )? FUNCTION ID '(' args_var? ')' block;
 
 
-assign : var '=' np2 | '(' var ( ',' var )* ')' '=' func_call;//LEFT FACTORING
-np2:expr|NEW;
+assign : var '=' expr | var '=' NEW | '(' var ( ',' var )* ')' '=' func_call;//LEFT FACTORING
 
 var : ( ( THIS | SUPER ) '.' )? ref ( '.' ref )*;
 ref : ID ( '[' expr ']' )*;
 
 expr : uop = '!' expr |uop = '~' expr| uop = '-' expr |uop = '(' expr ')' |expr bop='*' expr | expr bop='/' expr
 |expr bop =('+' | '-' | '%' | '&' | '|' | '^' | '||' | '&&') expr
-| expr bop = ('==' | '!=' | '<=' | '<' | '>') expr
+| expr bop = ('==' | '!=' | '<=' | '>=' | '<' | '>') expr
 | const_val |func_call | var | NIL;
 
 
@@ -96,8 +98,14 @@ func_call : READ '(' var ')' |( var '.' )? ID '(' params? ')' | SIZEOF '(' ( typ
 params : expr np;//left fact
 np:',' params|;
 
-cond_stmt : IF '(' expr ')' block ( ELSE block )? | SWITCH '(' var ') of'  ':' '{' ( CASE Int_const ':' block )* DEFAULT ':' block '}';
-loop_stmt : FOR '(' var_def? ';' expr ';' assign? ')' block | WHILE '(' expr ')' block;
+cond_stmt : if_stmt (else_stmt)? | SWITCH '(' var ') of'  ':' '{' case_stmt default_stmt '}';
+case_stmt : ( CASE Int_const ':' block )*;
+default_stmt : DEFAULT ':' block;
+if_stmt:IF '(' expr ')' block ;
+else_stmt:( ELSE block );
+loop_stmt : for_loop | while_loop;
+for_loop : FOR '(' var_def? ';' expr ';' assign? ')' block;
+while_loop : WHILE '(' expr ')' block;
 label : ID ':';
 const_val : Int_const | REAL_CONST | CHAR_CONST | Bool_const | String_const;
 ARITHMETIC : '+' | '-' | '*' | '/' | '%' ;

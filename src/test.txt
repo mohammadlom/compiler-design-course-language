@@ -1,0 +1,43 @@
+%% A sample program
+declare {
+int a;
+myType;
+(int, float) = f1(double b);
+}
+type myType {
+protected int x;
+int num;
+public (float y) = function myFun(int z){
+num=10;
+read(a);
+switch(num) of:{
+
+case 10 :{
+
+
+}
+
+default:{
+}
+
+}
+return;
+}
+}
+(int r) = function start() {
+const double c = 0.23;
+double s;
+read(s);
+float w;
+string ss = "kjsfvjkdnvknvkjvkjdbsvkd";
+char t = 'a';
+(r, w) = f1(s);
+return;
+}
+(int x, float y) = function f1(int b) {
+myType a = allocate myType;
+(y) = a.myFun(b);
+x = 0;
+return;
+}
+}

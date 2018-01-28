@@ -1,4 +1,4 @@
-// Generated from C:/Users/Mohammad/IdeaProjects/compiler-design-course-language/src\lulu2.g4 by ANTLR 4.7
+// Generated from C:/Users/Mohammad/IdeaProjects/compiler-design-course-language\lulu2.g4 by ANTLR 4.7
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -15,12 +15,6 @@ public interface lulu2Visitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitProgram(lulu2Parser.ProgramContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link lulu2Parser#comments}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitComments(lulu2Parser.CommentsContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link lulu2Parser#ft_dcl}.
 	 * @param ctx the parse tree
@@ -46,6 +40,18 @@ public interface lulu2Visitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitArgs_var(lulu2Parser.Args_varContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link lulu2Parser#array_dcl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArray_dcl(lulu2Parser.Array_dclContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link lulu2Parser#args_var_def}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArgs_var_def(lulu2Parser.Args_var_defContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link lulu2Parser#block}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -57,6 +63,12 @@ public interface lulu2Visitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitStmt(lulu2Parser.StmtContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link lulu2Parser#loop_cond_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLoop_cond_stmt(lulu2Parser.Loop_cond_stmtContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link lulu2Parser#type}.
 	 * @param ctx the parse tree
@@ -124,12 +136,6 @@ public interface lulu2Visitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAssign(lulu2Parser.AssignContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link lulu2Parser#np2}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitNp2(lulu2Parser.Np2Context ctx);
-	/**
 	 * Visit a parse tree produced by {@link lulu2Parser#var}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -147,12 +153,6 @@ public interface lulu2Visitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitExpr(lulu2Parser.ExprContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link lulu2Parser#fact}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFact(lulu2Parser.FactContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link lulu2Parser#func_call}.
 	 * @param ctx the parse tree
@@ -178,11 +178,47 @@ public interface lulu2Visitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCond_stmt(lulu2Parser.Cond_stmtContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link lulu2Parser#case_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCase_stmt(lulu2Parser.Case_stmtContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link lulu2Parser#default_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDefault_stmt(lulu2Parser.Default_stmtContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link lulu2Parser#if_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIf_stmt(lulu2Parser.If_stmtContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link lulu2Parser#else_stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitElse_stmt(lulu2Parser.Else_stmtContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link lulu2Parser#loop_stmt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitLoop_stmt(lulu2Parser.Loop_stmtContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link lulu2Parser#for_loop}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFor_loop(lulu2Parser.For_loopContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link lulu2Parser#while_loop}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWhile_loop(lulu2Parser.While_loopContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link lulu2Parser#label}.
 	 * @param ctx the parse tree
@@ -195,22 +231,4 @@ public interface lulu2Visitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitConst_val(lulu2Parser.Const_valContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link lulu2Parser#bit_unary_op}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBit_unary_op(lulu2Parser.Bit_unary_opContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link lulu2Parser#bit_binary_op}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBit_binary_op(lulu2Parser.Bit_binary_opContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link lulu2Parser#binary_op}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBinary_op(lulu2Parser.Binary_opContext ctx);
 }

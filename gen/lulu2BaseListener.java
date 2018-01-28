@@ -1,4 +1,4 @@
-// Generated from C:/Users/Mohammad/IdeaProjects/compiler-design-course-language/src\lulu2.g4 by ANTLR 4.7
+// Generated from C:/Users/Mohammad/IdeaProjects/compiler-design-course-language\lulu2.g4 by ANTLR 4.7
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -22,18 +22,6 @@ public class lulu2BaseListener implements lulu2Listener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitProgram(lulu2Parser.ProgramContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterComments(lulu2Parser.CommentsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitComments(lulu2Parser.CommentsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -87,6 +75,30 @@ public class lulu2BaseListener implements lulu2Listener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterArray_dcl(lulu2Parser.Array_dclContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArray_dcl(lulu2Parser.Array_dclContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterArgs_var_def(lulu2Parser.Args_var_defContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArgs_var_def(lulu2Parser.Args_var_defContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterBlock(lulu2Parser.BlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -106,6 +118,18 @@ public class lulu2BaseListener implements lulu2Listener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitStmt(lulu2Parser.StmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLoop_cond_stmt(lulu2Parser.Loop_cond_stmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLoop_cond_stmt(lulu2Parser.Loop_cond_stmtContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -243,18 +267,6 @@ public class lulu2BaseListener implements lulu2Listener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNp2(lulu2Parser.Np2Context ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitNp2(lulu2Parser.Np2Context ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterVar(lulu2Parser.VarContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -286,18 +298,6 @@ public class lulu2BaseListener implements lulu2Listener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitExpr(lulu2Parser.ExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterFact(lulu2Parser.FactContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFact(lulu2Parser.FactContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -351,6 +351,54 @@ public class lulu2BaseListener implements lulu2Listener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterCase_stmt(lulu2Parser.Case_stmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCase_stmt(lulu2Parser.Case_stmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDefault_stmt(lulu2Parser.Default_stmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDefault_stmt(lulu2Parser.Default_stmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIf_stmt(lulu2Parser.If_stmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIf_stmt(lulu2Parser.If_stmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterElse_stmt(lulu2Parser.Else_stmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitElse_stmt(lulu2Parser.Else_stmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterLoop_stmt(lulu2Parser.Loop_stmtContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -358,6 +406,30 @@ public class lulu2BaseListener implements lulu2Listener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitLoop_stmt(lulu2Parser.Loop_stmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFor_loop(lulu2Parser.For_loopContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFor_loop(lulu2Parser.For_loopContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterWhile_loop(lulu2Parser.While_loopContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitWhile_loop(lulu2Parser.While_loopContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -382,42 +454,6 @@ public class lulu2BaseListener implements lulu2Listener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitConst_val(lulu2Parser.Const_valContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterBit_unary_op(lulu2Parser.Bit_unary_opContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBit_unary_op(lulu2Parser.Bit_unary_opContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterBit_binary_op(lulu2Parser.Bit_binary_opContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBit_binary_op(lulu2Parser.Bit_binary_opContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterBinary_op(lulu2Parser.Binary_opContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBinary_op(lulu2Parser.Binary_opContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

@@ -1,4 +1,4 @@
-// Generated from C:/Users/Mohammad/IdeaProjects/compiler-design-course-language/src\lulu2.g4 by ANTLR 4.7
+// Generated from C:/Users/Mohammad/IdeaProjects/compiler-design-course-language\lulu2.g4 by ANTLR 4.7
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -16,16 +16,6 @@ public interface lulu2Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitProgram(lulu2Parser.ProgramContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link lulu2Parser#comments}.
-	 * @param ctx the parse tree
-	 */
-	void enterComments(lulu2Parser.CommentsContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link lulu2Parser#comments}.
-	 * @param ctx the parse tree
-	 */
-	void exitComments(lulu2Parser.CommentsContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link lulu2Parser#ft_dcl}.
 	 * @param ctx the parse tree
@@ -67,6 +57,26 @@ public interface lulu2Listener extends ParseTreeListener {
 	 */
 	void exitArgs_var(lulu2Parser.Args_varContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link lulu2Parser#array_dcl}.
+	 * @param ctx the parse tree
+	 */
+	void enterArray_dcl(lulu2Parser.Array_dclContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link lulu2Parser#array_dcl}.
+	 * @param ctx the parse tree
+	 */
+	void exitArray_dcl(lulu2Parser.Array_dclContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link lulu2Parser#args_var_def}.
+	 * @param ctx the parse tree
+	 */
+	void enterArgs_var_def(lulu2Parser.Args_var_defContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link lulu2Parser#args_var_def}.
+	 * @param ctx the parse tree
+	 */
+	void exitArgs_var_def(lulu2Parser.Args_var_defContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link lulu2Parser#block}.
 	 * @param ctx the parse tree
 	 */
@@ -86,6 +96,16 @@ public interface lulu2Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitStmt(lulu2Parser.StmtContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link lulu2Parser#loop_cond_stmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterLoop_cond_stmt(lulu2Parser.Loop_cond_stmtContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link lulu2Parser#loop_cond_stmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitLoop_cond_stmt(lulu2Parser.Loop_cond_stmtContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link lulu2Parser#type}.
 	 * @param ctx the parse tree
@@ -197,16 +217,6 @@ public interface lulu2Listener extends ParseTreeListener {
 	 */
 	void exitAssign(lulu2Parser.AssignContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link lulu2Parser#np2}.
-	 * @param ctx the parse tree
-	 */
-	void enterNp2(lulu2Parser.Np2Context ctx);
-	/**
-	 * Exit a parse tree produced by {@link lulu2Parser#np2}.
-	 * @param ctx the parse tree
-	 */
-	void exitNp2(lulu2Parser.Np2Context ctx);
-	/**
 	 * Enter a parse tree produced by {@link lulu2Parser#var}.
 	 * @param ctx the parse tree
 	 */
@@ -236,16 +246,6 @@ public interface lulu2Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitExpr(lulu2Parser.ExprContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link lulu2Parser#fact}.
-	 * @param ctx the parse tree
-	 */
-	void enterFact(lulu2Parser.FactContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link lulu2Parser#fact}.
-	 * @param ctx the parse tree
-	 */
-	void exitFact(lulu2Parser.FactContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link lulu2Parser#func_call}.
 	 * @param ctx the parse tree
@@ -287,6 +287,46 @@ public interface lulu2Listener extends ParseTreeListener {
 	 */
 	void exitCond_stmt(lulu2Parser.Cond_stmtContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link lulu2Parser#case_stmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterCase_stmt(lulu2Parser.Case_stmtContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link lulu2Parser#case_stmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitCase_stmt(lulu2Parser.Case_stmtContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link lulu2Parser#default_stmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterDefault_stmt(lulu2Parser.Default_stmtContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link lulu2Parser#default_stmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitDefault_stmt(lulu2Parser.Default_stmtContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link lulu2Parser#if_stmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterIf_stmt(lulu2Parser.If_stmtContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link lulu2Parser#if_stmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitIf_stmt(lulu2Parser.If_stmtContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link lulu2Parser#else_stmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterElse_stmt(lulu2Parser.Else_stmtContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link lulu2Parser#else_stmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitElse_stmt(lulu2Parser.Else_stmtContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link lulu2Parser#loop_stmt}.
 	 * @param ctx the parse tree
 	 */
@@ -296,6 +336,26 @@ public interface lulu2Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitLoop_stmt(lulu2Parser.Loop_stmtContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link lulu2Parser#for_loop}.
+	 * @param ctx the parse tree
+	 */
+	void enterFor_loop(lulu2Parser.For_loopContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link lulu2Parser#for_loop}.
+	 * @param ctx the parse tree
+	 */
+	void exitFor_loop(lulu2Parser.For_loopContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link lulu2Parser#while_loop}.
+	 * @param ctx the parse tree
+	 */
+	void enterWhile_loop(lulu2Parser.While_loopContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link lulu2Parser#while_loop}.
+	 * @param ctx the parse tree
+	 */
+	void exitWhile_loop(lulu2Parser.While_loopContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link lulu2Parser#label}.
 	 * @param ctx the parse tree
@@ -316,34 +376,4 @@ public interface lulu2Listener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitConst_val(lulu2Parser.Const_valContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link lulu2Parser#bit_unary_op}.
-	 * @param ctx the parse tree
-	 */
-	void enterBit_unary_op(lulu2Parser.Bit_unary_opContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link lulu2Parser#bit_unary_op}.
-	 * @param ctx the parse tree
-	 */
-	void exitBit_unary_op(lulu2Parser.Bit_unary_opContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link lulu2Parser#bit_binary_op}.
-	 * @param ctx the parse tree
-	 */
-	void enterBit_binary_op(lulu2Parser.Bit_binary_opContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link lulu2Parser#bit_binary_op}.
-	 * @param ctx the parse tree
-	 */
-	void exitBit_binary_op(lulu2Parser.Bit_binary_opContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link lulu2Parser#binary_op}.
-	 * @param ctx the parse tree
-	 */
-	void enterBinary_op(lulu2Parser.Binary_opContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link lulu2Parser#binary_op}.
-	 * @param ctx the parse tree
-	 */
-	void exitBinary_op(lulu2Parser.Binary_opContext ctx);
 }
